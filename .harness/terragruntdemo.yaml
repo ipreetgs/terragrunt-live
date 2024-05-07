@@ -1,0 +1,38 @@
+pipeline:
+  name: terragrunt-demo
+  identifier: terragruntdemo
+  projectIdentifier: DemoTx
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: terragrunt-plan
+        identifier: terragruntplan
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: TerragruntPlan
+                  name: TerragruntPlan_1
+                  identifier: TerragruntPlan_1
+                  spec:
+                    configuration:
+                      command: Apply
+                      configFiles:
+                        store:
+                          type: Github
+                          spec:
+                            gitFetchType: Branch
+                            connectorRef: account.Github_OAuth_1702454216196
+                            repoName: terragrunt-vsphere-live-module-repo
+                            branch: main
+                            folderPath: terragrunt-vsphere-harness-live/local/Virtual-machine
+                      moduleConfig:
+                        terragruntRunType: RunAll
+                        path: terragrunt-vsphere-harness-live/local/Virtual-machine
+                      secretManagerRef: harnessSecretManager
+                    provisionerIdentifier: a1
+                  timeout: 10m
+        tags: {}
