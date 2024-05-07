@@ -28,7 +28,7 @@ pipeline:
                             connectorRef: account.Github_OAuth_1702454216196
                             repoName: ipreetgs/terragrunt-vsphere-live-module-repo
                             branch: main
-                            folderPath: terragrunt-vsphere-harness-live/local/Virtual-machine
+                            folderPath: .
                       moduleConfig:
                         terragruntRunType: RunAll
                         path: terragrunt-vsphere-harness-live/local/Virtual-machine
