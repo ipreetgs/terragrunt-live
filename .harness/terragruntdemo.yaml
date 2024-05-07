@@ -26,7 +26,7 @@ pipeline:
                           spec:
                             gitFetchType: Branch
                             connectorRef: account.Github_OAuth_1702454216196
-                            repoName: terragrunt-vsphere-live-module-repo
+                            repoName: ipreetgs/terragrunt-vsphere-live-module-repo
                             branch: main
                             folderPath: terragrunt-vsphere-harness-live/local/Virtual-machine
                       moduleConfig:
