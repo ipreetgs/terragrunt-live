@@ -34,7 +34,10 @@ pipeline:
                           echo $VSPHERE_USER
                           echo $VSPHERE_PASSWORD
                     environmentVariables: []
-                    outputVariables: []
+                    outputVariables:
+                      - name: VSPHERE_USER
+                        type: Secret
+                        value: VSPHERE_USER
                     outputAlias:
                       scope: Pipeline
                       key: vsphere_creds
