@@ -28,6 +28,7 @@ pipeline:
                           export VSPHERE_PASSWORD=$(eval echo $VSPHERE_PASSWORD)
 
                           echo $VSPHERE_USER
+                          echo $VSPHERE_PASSWORD
                     environmentVariables: []
                     outputVariables: []
                   timeout: 10m
