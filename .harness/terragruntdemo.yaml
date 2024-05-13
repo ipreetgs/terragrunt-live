@@ -24,8 +24,12 @@ pipeline:
                       type: Inline
                       spec:
                         script: |-
-                          export VSPHERE_USER=$(eval echo $VSPHERE_USER)
-                          export VSPHERE_PASSWORD=$(eval echo $VSPHERE_PASSWORD)
+                          # export VSPHERE_USER=$(eval echo $VSPHERE_USER)
+                          # export VSPHERE_PASSWORD=$(eval echo $VSPHERE_PASSWORD)
+
+                          export VSPHERE_USER=$VSPHERE_USER
+                          export VSPHERE_PASSWORD=$VSPHERE_PASSWORD
+
 
                           echo $VSPHERE_USER
                           echo $VSPHERE_PASSWORD
