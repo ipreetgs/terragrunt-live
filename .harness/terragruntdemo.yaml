@@ -27,7 +27,7 @@ pipeline:
                             gitFetchType: Branch
                             connectorRef: account.Github_OAuth_1702454216196
                             repoName: ipreetgs/terragrunt-vsphere-live-module-repo
-                            branch: test-1
+                            branch: main
                             folderPath: .
                       moduleConfig:
                         terragruntRunType: RunAll
