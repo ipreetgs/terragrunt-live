@@ -36,8 +36,8 @@ pipeline:
                     environmentVariables: []
                     outputVariables:
                       - name: VSPHERE_USER
-                        type: Secret
-                        value: VSPHERE_USER
+                        type: String
+                        value: <+pipeline.stages.custom.spec.execution.steps.export_values.output.outputVariables.outputVar>
                     outputAlias:
                       scope: Pipeline
                       key: vsphere_creds
