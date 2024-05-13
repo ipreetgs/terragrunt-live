@@ -14,8 +14,6 @@ locals {
 #     #dynamodb_table = "your-dynamodb-table-name"
 #   }
 # }
-
-
 # Generite file with provider`s (vSphere) data
 generate "provider" {
   path      = "provider.tf"
