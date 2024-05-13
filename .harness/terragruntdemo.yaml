@@ -65,6 +65,17 @@ pipeline:
                     provisionerIdentifier: a1
                   timeout: 10m
         tags: {}
+        variables:
+          - name: VSPHERE_USER
+            type: String
+            description: ""
+            required: true
+            value: demo
+          - name: VSPHERE_PASSWORD
+            type: String
+            description: ""
+            required: true
+            value: demo
   variables:
     - name: VSPHERE_USER
       type: Secret
