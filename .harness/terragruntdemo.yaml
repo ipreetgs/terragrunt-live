@@ -37,20 +37,6 @@ pipeline:
                     outputVariables: []
                   timeout: 10m
               - step:
-                  type: ShellScript
-                  name: ShellScript_2
-                  identifier: ShellScript_2
-                  spec:
-                    shell: Bash
-                    executionTarget: {}
-                    source:
-                      type: Inline
-                      spec:
-                        script: echo $VSPHERE_PASSWORD
-                    environmentVariables: []
-                    outputVariables: []
-                  timeout: 10m
-              - step:
                   type: TerragruntPlan
                   name: TerragruntPlan_1
                   identifier: TerragruntPlan_1
@@ -61,6 +47,16 @@ pipeline:
                         store:
                           type: Github
                           spec:
+                            script: |-
+                              # export VSPHERE_USER=$(eval echo $VSPHERE_USER)
+                              # export VSPHERE_PASSWORD=$(eval echo $VSPHERE_PASSWORD)
+
+                              export VSPHERE_USER="demo"
+                              export VSPHERE_PASSWORD="demo"
+
+
+                              echo $VSPHERE_USER
+                              echo $VSPHERE_PASSWORD
                             gitFetchType: Branch
                             connectorRef: account.Github_OAuth_1702454216196
                             repoName: ipreetgs/terragrunt-vsphere-live-module-repo
