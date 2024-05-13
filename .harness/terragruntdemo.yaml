@@ -24,8 +24,10 @@ pipeline:
                       type: Inline
                       spec:
                         script: |-
-                          export HARNESS_SECRET=$(eval echo $VSPHERE_USER)
-                          export HARNESS_SECRET=$(eval echo $VSPHERE_PASSWORD)
+                          export VSPHERE_USER=$(eval echo $VSPHERE_USER)
+                          export VSPHERE_PASSWORD=$(eval echo $VSPHERE_PASSWORD)
+
+                          echo $VSPHERE_USER
                     environmentVariables: []
                     outputVariables: []
                   timeout: 10m
