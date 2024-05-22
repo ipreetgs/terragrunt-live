@@ -20,8 +20,6 @@ generate "provider" {
   if_exists = "overwrite_terragrunt"
   contents = <<EOF
 provider "vsphere" {
-  user           = "admin@company.local"
-  password       = "MyAwesomePassword"
   vsphere_server = "0.0.0.0"
   allow_unverified_ssl = true
 }

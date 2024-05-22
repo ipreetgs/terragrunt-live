@@ -1,9 +1,0 @@
-vm_name="demo-123"
-vm_cpu=2
-vm_memory=512
-vm_disk_size="32"
-vsphere_datacenter ="Datacenter"
-vsphere_cluster= "DTA-C"
-vsphere_datastore = "LocalDS"
-vsphere_network="demo"
-vsphere_resource_pool="Resources"
