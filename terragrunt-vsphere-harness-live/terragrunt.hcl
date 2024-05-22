@@ -1,8 +1,8 @@
 locals {
   #credentials = read_terragrunt_config(find_in_parent_folders("credentials.hcl"))
-  credentials = "credentials.hcl"
+  # credentials = "credentials.hcl"
   #server      = read_terragrunt_config(find_in_parent_folders("server.hcl"))
-  server = "../server.hcl"
+  # server = "../server.hcl"
 }
 
 # remote_state {

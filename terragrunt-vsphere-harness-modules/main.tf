@@ -1,46 +1,19 @@
-data "vsphere_datacenter" "dc" {
-  name = var.vsphere_datacenter
+module "vm_1" {
+  source = "./vm_module"
+  vm_name = "demo2"
+  vm_cpu = var.vm_cpu
+  vsphere_network = var.vsphere_network
+  vm_memory = var.vm_memory
+  vm_disk_size = var.vm_disk_size
 }
 
-data "vsphere_datastore" "datastore" {
-  name          = var.vsphere_datastore
-  datacenter_id = data.vsphere_datacenter.dc.id
+module "vm_2" {
+  source = "./vm_module"
+  vm_name = "demo"
+  vm_cpu = var.vm_cpu
+  vsphere_network = var.vsphere_network
+  vm_memory = var.vm_memory
+  vm_disk_size = var.vm_disk_size
 }
 
-data "vsphere_compute_cluster" "cluster" {
-  name          = var.vsphere_cluster
-  datacenter_id = data.vsphere_datacenter.dc.id
-}
 
-data "vsphere_network" "network" {
-  name          = var.vsphere_network
-  datacenter_id = data.vsphere_datacenter.dc.id
-}
-
-data "vsphere_resource_pool" "pool" {
-  name          = var.vsphere_resource_pool
-  datacenter_id = data.vsphere_datacenter.dc.id
-}
-
-resource "vsphere_virtual_machine" "vm" {
-  name             = var.vm_name
-  resource_pool_id = data.vsphere_resource_pool.pool.id
-  datastore_id     = data.vsphere_datastore.datastore.id
-  num_cpus         = var.vm_cpu
-  memory           = var.vm_memory
-  guest_id         = var.vm_guest_os_type
-  firmware         = var.vm_firmware
-  cdrom {
-    client_device = true
-  }
-
-  network_interface {
-    network_id = data.vsphere_network.network.id
-  }
-
-  disk {
-    label            = "disk0"
-    size             = var.vm_disk_size
-    thin_provisioned = true
-  }
-}
