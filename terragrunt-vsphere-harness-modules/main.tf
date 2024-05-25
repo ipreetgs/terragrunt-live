@@ -16,4 +16,12 @@ module "vm_2" {
   vm_disk_size = 40
 }
 
+module "vm_3" {
+  source = "./vm_module"
+  vm_name = "demo4"
+  vm_cpu = 5
+  vsphere_network = var.vsphere_network
+  vm_memory = 2048
+  vm_disk_size = 40
+}
 
