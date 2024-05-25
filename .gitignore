@@ -1,3 +1,9 @@
 .terraform
 .terragrunt-cache
 .tfstate*
+.idea
+.vscode
+*.tfstate
+*.tfplan
+.terraform*
+*.out

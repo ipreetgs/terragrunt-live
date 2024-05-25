@@ -23,6 +23,8 @@ description = "vSphere Network name"
 #   type        = string
 #   description = "vSphere Resource Pool name"
 # }
+
+## inputs ##
 variable "vm_name" {
 type = string
 description = "Name of the Virtual Machine"
@@ -39,6 +41,8 @@ variable "vm_disk_size" {
 type = number
 description = "Disk size (in GB) for the Virtual Machine"
 }
+
+
 variable "vm_guest_os_type" {
 type = string
 description = "Guest OS type for the Virtual Machine"

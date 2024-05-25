@@ -1,9 +1,9 @@
-provider "vsphere" {
-  user           = "admin@company.local"
-  password       = "MyAwesomePassword"
-  vsphere_server = "0.0.0.0"
-  allow_unverified_ssl = true
-}
+# provider "vsphere" {
+#   user           = "admin@company.local"
+#   password       = "MyAwesomePassword"
+#   vsphere_server = "0.0.0.0"
+#   allow_unverified_ssl = true
+# }
 
 
 data "vsphere_datacenter" "dc" {
@@ -25,6 +25,9 @@ data "vsphere_resource_pool" "root_pool" {
 name = "DTA-Cluster/Resources"
 datacenter_id = data.vsphere_datacenter.dc.id
 }
+
+# VM module #
+
 resource "vsphere_virtual_machine" "vm" {
 name = var.vm_name
 folder = "DTA/FAPSDTA/Deluxe-User-Test"
