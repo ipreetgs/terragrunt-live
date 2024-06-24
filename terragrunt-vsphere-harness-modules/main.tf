@@ -1,3 +1,13 @@
+terraform {
+  backend "remote" {
+      workspaces {
+        # name = "dev1"
+            prefix = "my-prefix-"
+        }
+  } 
+  }
+
+
 module "vm_1" {
   source = "./vm_module"
   vm_name = "demo2"

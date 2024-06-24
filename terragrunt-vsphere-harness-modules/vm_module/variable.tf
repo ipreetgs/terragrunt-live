@@ -25,18 +25,22 @@ description = "vSphere Network name"
 # }
 variable "vm_name" {
 type = string
+default = "testVM"
 description = "Name of the Virtual Machine"
 }
 variable "vm_cpu" {
 type = number
+default = 2
 description = "Number of vCPU for the Virtual Machine"
 }
 variable "vm_memory" {
 type = number
+default = 1024
 description = "Memory (in MB) for the Virtual Machine"
 }
 variable "vm_disk_size" {
 type = number
+default = 20
 description = "Disk size (in GB) for the Virtual Machine"
 }
 variable "vm_guest_os_type" {

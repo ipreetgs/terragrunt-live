@@ -1,19 +1,20 @@
 locals {
-  #credentials = read_terragrunt_config(find_in_parent_folders("credentials.hcl"))
-  # credentials = "credentials.hcl"
-  #server      = read_terragrunt_config(find_in_parent_folders("server.hcl"))
-  # server = "../server.hcl"
+  jfrog_token = get_env("JFROG_TOKEN", "default-value-if-not-set")
 }
 
-# remote_state {
-#   backend = "s3"
-#   config = {
-#     bucket         = "demotfstatefile"
-#     key            = "${path_relative_to_include()}/terraform.tfstate"
-#     region         = "us-east-1"
-#     #dynamodb_table = "your-dynamodb-table-name"
-#   }
-# }
+remote_state {
+  backend = "remote"
+  config = {
+    hostname = "gurpreet1.jfrog.io"
+    organization = "tf2"
+    token = local.jfrog_token
+    # token="felo"
+    # workspaces {
+    #     name = "dev"
+    #         # prefix = "my-prefix-"
+    #     }
+  }
+}
 # Generite file with provider`s (vSphere) data
 generate "provider" {
   path      = "provider.tf"
