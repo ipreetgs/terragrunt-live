@@ -21,17 +21,10 @@ generate "provider" {
   if_exists = "overwrite_terragrunt"
   contents = <<EOF
 provider "vsphere" {
-  user = "demo"
-  password = "demo12"
-  vsphere_server = "0.0.0.0"
+  # user = ""
+  # password = ""
+  # vsphere_server = ""
   allow_unverified_ssl = true
 }
 EOF
 }
-
-
-
-# inputs = merge(
-#   local.common_vars.locals,
-#   yamldecode(file(find_in_parent_folders("terraform.tfvars")))
-# )
