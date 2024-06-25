@@ -8,12 +8,6 @@ remote_state {
     hostname = "gurpreet1.jfrog.io"
     organization = "tf2"
     token = local.jfrog_token
-    # token="felo"
-    # workspaces {
-    #     name = "dev"
-    #         # prefix = "my-prefix-"
-    #     }
-  }
 }
 # Generite file with provider`s (vSphere) data
 generate "provider" {
