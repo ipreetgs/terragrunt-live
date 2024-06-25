@@ -1,0 +1,89 @@
+pipeline:
+  name: terragrunt-demo
+  identifier: terragruntdemo
+  projectIdentifier: DemoTx
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: terragrunt-plan
+        identifier: terragruntplan
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: export_values
+                  identifier: export_values
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: |-
+                          # export VSPHERE_USER=$(eval echo $VSPHERE_USER)
+                          # export VSPHERE_PASSWORD=$(eval echo $VSPHERE_PASSWORD)
+
+                          export VSPHERE_USER="demo"
+                          export VSPHERE_PASSWORD="demo"
+
+
+                          echo $VSPHERE_USER
+                          echo $VSPHERE_PASSWORD
+                    environmentVariables: []
+                    outputVariables:
+                      - name: VSPHERE_USER
+                        type: String
+                        value: <+pipeline.stages.custom.spec.execution.steps.export_values.output.outputVariables.outputVar>
+                    outputAlias:
+                      scope: Pipeline
+                      key: vsphere_creds
+                  timeout: 10m
+              - step:
+                  type: TerragruntPlan
+                  name: TerragruntPlan_1
+                  identifier: TerragruntPlan_1
+                  spec:
+                    configuration:
+                      command: Apply
+                      configFiles:
+                        store:
+                          type: Github
+                          spec:
+                            gitFetchType: Branch
+                            connectorRef: account.Github_OAuth_1702454216196
+                            repoName: ipreetgs/terragrunt-vsphere-live-module-repo
+                            branch: test-1
+                            folderPath: .
+                      moduleConfig:
+                        terragruntRunType: RunAll
+                        path: terragrunt-vsphere-harness-live/local/Virtual-machine
+                      secretManagerRef: harnessSecretManager
+                    provisionerIdentifier: a1
+                  timeout: 10m
+        tags: {}
+        variables:
+          - name: VSPHERE_USER
+            type: String
+            description: ""
+            required: true
+            value: demo
+          - name: VSPHERE_PASSWORD
+            type: String
+            description: ""
+            required: true
+            value: demo
+  variables:
+    - name: VSPHERE_USER
+      type: Secret
+      description: ""
+      required: true
+      value: vcenter_user
+    - name: VSPHERE_PASSWORD
+      type: Secret
+      description: ""
+      required: true
+      value: vcenter_pass
