@@ -1,0 +1,108 @@
+pipeline:
+  name: terragrunt-final
+  identifier: terragruntfinal
+  projectIdentifier: DemoTx
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: terragrunt
+        identifier: terragrunt
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: ShellScript_1
+                  identifier: ShellScript_1
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: |-
+                          echo $JFROG_TOKEN
+                          echo $JFROG_TOKEN1
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+              - step:
+                  type: TerragruntPlan
+                  name: TerragruntPlan_1
+                  identifier: TerragruntPlan_1
+                  spec:
+                    environmentVariables:
+                      - name: JFROG_TOKEN
+                        value: <+secrets.getValue("jfrog-token")>
+                    configuration:
+                      command: Apply
+                      configFiles:
+                        store:
+                          type: Github
+                          spec:
+                            gitFetchType: Branch
+                            connectorRef: account.Github_OAuth_1702454216196
+                            repoName: ipreetgs/terragrunt-pipeline
+                            branch: main
+                            folderPath: .
+                      moduleConfig:
+                        terragruntRunType: RunModule
+                        path: live/aws
+                      secretManagerRef: harnessSecretManager
+                      environmentVariables:
+                        - name: JFROG_TOKEN
+                          value: <+secrets.getValue("jfrog-token")>
+                          type: String
+                    provisionerIdentifier: a1a
+                  timeout: 10m
+              - step:
+                  type: TerragruntApply
+                  name: TerragruntApply_1
+                  identifier: TerragruntApply_1
+                  spec:
+                    configuration:
+                      type: InheritFromPlan
+                    provisionerIdentifier: a1a
+                  timeout: 10m
+              - step:
+                  type: ShellScript
+                  name: ShellScript_2
+                  identifier: ShellScript_2
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: echo Done
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+              - step:
+                  type: TerragruntDestroy
+                  name: TerragruntDestroy_1
+                  identifier: TerragruntDestroy_1
+                  spec:
+                    provisionerIdentifier: a1a
+                    configuration:
+                      type: InheritFromApply
+                  timeout: 10m
+        tags: {}
+        delegateSelectors:
+          - docker-delegate2-terraform-terragrunt
+  delegateSelectors:
+    - docker-delegate2-terraform
+  variables:
+    - name: JFROG_TOKEN
+      type: String
+      description: ""
+      required: false
+      value: <+secrets.getValue("jfrog-token")>
+    - name: JFROG_TOKEN1
+      type: String
+      description: ""
+      required: false
+      value: hellloo
