@@ -105,9 +105,7 @@ pipeline:
                       timeout: 10m
                       when:
                         stageStatus: Success
-                        condition: |
-                          when:
-                            condition: "<+pipeline.variables.env> == 'prod'"
+                        condition: <+pipeline.variables.env> == 'prod'
                   - step:
                       type: TerragruntApply
                       name: TerragruntApply_2
@@ -119,9 +117,7 @@ pipeline:
                       timeout: 10m
                       when:
                         stageStatus: Success
-                        condition: |-
-                          when:
-                            condition: "<+pipeline.variables.env> == 'dev'"
+                        condition: <+pipeline.variables.env> == 'dev'
         tags: {}
   variables:
     - name: env
