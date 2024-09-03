@@ -33,4 +33,4 @@ pipeline:
       type: String
       description: ""
       required: true
-      value: ""
+      value: <+input>.allowedValues(dev,prod)
