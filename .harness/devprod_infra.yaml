@@ -1,0 +1,30 @@
+pipeline:
+  name: dev-prod infra
+  identifier: devprod_infra
+  projectIdentifier: DemoTx
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: setupinfra
+        identifier: setupinfra
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: ShellScript_1
+                  identifier: ShellScript_1
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: pipeline to create infra
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+        tags: {}
