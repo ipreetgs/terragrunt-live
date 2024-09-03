@@ -51,8 +51,8 @@ pipeline:
                         provisionerIdentifier: prod
                       timeout: 10m
                       when:
-                        stageStatus: All
-                        condition: "when:  condition: \"<+pipeline.variables.env> == 'prod\""
+                        stageStatus: Success
+                        condition: <+pipeline.variables.env> == 'prod'
                   - step:
                       type: TerragruntPlan
                       name: TerragruntPlan_2
@@ -77,7 +77,7 @@ pipeline:
                       timeout: 10m
                       when:
                         stageStatus: All
-                        condition: "when:   condition: \"<+pipeline.variables.env> == 'dev'\""
+                        condition: <+pipeline.variables.env> == 'dev'
               - step:
                   type: HarnessApproval
                   name: HarnessApproval_1
