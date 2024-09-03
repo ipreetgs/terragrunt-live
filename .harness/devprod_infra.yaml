@@ -23,7 +23,7 @@ pipeline:
                     source:
                       type: Inline
                       spec:
-                        script: pipeline to create infra
+                        script: echo pipeline to create infra
                     environmentVariables: []
                     outputVariables: []
                   timeout: 10m
