@@ -27,6 +27,103 @@ pipeline:
                     environmentVariables: []
                     outputVariables: []
                   timeout: 10m
+              - parallel:
+                  - step:
+                      type: TerragruntPlan
+                      name: TerragruntPlan_1
+                      identifier: TerragruntPlan_1
+                      spec:
+                        configuration:
+                          command: Apply
+                          configFiles:
+                            store:
+                              type: Github
+                              spec:
+                                gitFetchType: Branch
+                                connectorRef: account.Github_OAuth_1702454216196
+                                repoName: terragrunt-live
+                                branch: dev-prod
+                                folderPath: .
+                          moduleConfig:
+                            terragruntRunType: RunModule
+                            path: terragrunt-vsphere-harness-live/prod/
+                          secretManagerRef: harnessSecretManager
+                        provisionerIdentifier: prod
+                      timeout: 10m
+                      when:
+                        stageStatus: Success
+                        condition: "when:  condition: \"<+pipeline.variables.env> == 'prod\""
+                  - step:
+                      type: TerragruntPlan
+                      name: TerragruntPlan_2
+                      identifier: TerragruntPlan_2
+                      spec:
+                        configuration:
+                          command: Apply
+                          configFiles:
+                            store:
+                              type: Github
+                              spec:
+                                gitFetchType: Branch
+                                connectorRef: account.Github_OAuth_1702454216196
+                                repoName: terragrunt-live
+                                branch: dev-prod
+                                folderPath: .
+                          moduleConfig:
+                            terragruntRunType: RunModule
+                            path: terragrunt-vsphere-harness-live/dev/
+                          secretManagerRef: harnessSecretManager
+                        provisionerIdentifier: dev
+                      timeout: 10m
+                      when:
+                        stageStatus: Success
+                        condition: |
+                          when:
+                            condition: "<+pipeline.variables.env> == 'dev'"
+              - step:
+                  type: HarnessApproval
+                  name: HarnessApproval_1
+                  identifier: HarnessApproval_1
+                  spec:
+                    approvalMessage: Please review the following information and approve the pipeline progression
+                    includePipelineExecutionHistory: true
+                    isAutoRejectEnabled: false
+                    approvers:
+                      userGroups:
+                        - account._account_all_users
+                      minimumCount: 1
+                      disallowPipelineExecutor: false
+                    approverInputs: []
+                  timeout: 1d
+              - parallel:
+                  - step:
+                      type: TerragruntApply
+                      name: TerragruntApply_1
+                      identifier: TerragruntApply_1
+                      spec:
+                        configuration:
+                          type: InheritFromPlan
+                        provisionerIdentifier: prod
+                      timeout: 10m
+                      when:
+                        stageStatus: Success
+                        condition: |
+                          when:
+                            condition: "<+pipeline.variables.env> == 'prod'"
+                  - step:
+                      type: TerragruntApply
+                      name: TerragruntApply_2
+                      identifier: TerragruntApply_2
+                      spec:
+                        configuration:
+                          type: InheritFromPlan
+                        provisionerIdentifier: dev
+                      timeout: 10m
+                      when:
+                        stageStatus: Success
+                        condition: |-
+                          when:
+                            condition: "<+pipeline.variables.env> == 'dev'"
         tags: {}
   variables:
     - name: env
