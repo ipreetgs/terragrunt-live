@@ -28,3 +28,9 @@ pipeline:
                     outputVariables: []
                   timeout: 10m
         tags: {}
+  variables:
+    - name: env
+      type: String
+      description: ""
+      required: true
+      value: ""
