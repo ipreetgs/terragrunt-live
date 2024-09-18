@@ -48,6 +48,9 @@ pipeline:
                             terragruntRunType: RunModule
                             path: terragrunt-vsphere-harness-live/prod/
                           secretManagerRef: harnessSecretManager
+                          commandFlags:
+                            - commandType: PLAN
+                              flag: "-out= tf.plan"
                         provisionerIdentifier: prod
                       timeout: 10m
                       when:
