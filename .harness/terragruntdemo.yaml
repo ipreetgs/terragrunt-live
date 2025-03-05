@@ -44,6 +44,32 @@ pipeline:
               action:
                 type: StageRollback
     - stage:
+        name: forQA
+        identifier: forQA
+        description: ""
+        type: Approval
+        spec:
+          execution:
+            steps:
+              - step:
+                  name: qa
+                  identifier: qa
+                  type: HarnessApproval
+                  timeout: 1d
+                  spec:
+                    approvalMessage: |-
+                      Please review the following information
+                      and approve the pipeline progression
+                    includePipelineExecutionHistory: true
+                    approvers:
+                      minimumCount: 1
+                      disallowPipelineExecutor: false
+                      userGroups:
+                        - account._account_all_users
+                    isAutoRejectEnabled: false
+                    approverInputs: []
+        tags: {}
+    - stage:
         name: qa
         identifier: qa
         description: ""
@@ -90,3 +116,4 @@ pipeline:
       description: ""
       required: true
       value: vcenter_pass
+  allowStageExecutions: true
