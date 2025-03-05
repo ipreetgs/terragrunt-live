@@ -1,5 +1,5 @@
 pipeline:
-  name: terragrunt-demo
+  name: deployment_GCF
   identifier: terragruntdemo
   projectIdentifier: DemoTx
   orgIdentifier: default
